@@ -1,57 +1,60 @@
 package com.oybc.wizardoflegendguide.service.entitiy;
  
 public class Relics  implements java.io.Serializable{
+    private int id;
+    private String kind;//offense, defense, misc, curse
+    private String name;
+    private String pic;
+    private String dscrp;
 
-    private int relicsId;
-    private String relicsName;
-    private String relicsType;//offense, defense, misc
-    private String relicsPic;
-    private String relicsDescription;
-
-    public int getRelicsId() {
-        return relicsId;
+    public int getId() {
+        return id;
     }
 
-    public void setRelicsId(int relicsId) {
-        this.relicsId = relicsId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    
-    public String getRelicsName() {
-        return relicsName;
+    public String getKind() {
+        return kind;
     }
 
-    public void setRelicsName(String relicsName) {
-        this.relicsName = relicsName;
+    public void setKind(String kind) {
+        this.kind = kind;
     }
 
-    public String getRelicsType() {
-        return relicsType;
+    public String getName() {
+        return name;
     }
 
-    public void setRelicsType(String relicsType) {
-        this.relicsType = relicsType;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getRelicsPic() {
-        return relicsPic;
+    public String getPic() {
+        return pic;
     }
 
-    public void setRelicsPic(String relicsPic) {
-        this.relicsPic = relicsPic;
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 
-    public String getRelicsDescription() {
-        return relicsDescription;
+    public String getDscrp() {
+        return dscrp;
     }
 
-    public void setRelicsDescription(String relicsDescription) {
-        this.relicsDescription = relicsDescription;
+    public void setDscrp(String dscrp) {
+        this.dscrp = dscrp;
     }
-    
 
-  
-
-
-    
+    @Override
+    public String toString() {
+        return "Relics{" +
+                "id=" + id +
+                ", kind='" + kind + '\'' +
+                ", name='" + name + '\'' +
+                ", pic='" + pic + '\'' +
+                ", dscrp='" + dscrp + '\'' +
+                '}';
+    }
 }

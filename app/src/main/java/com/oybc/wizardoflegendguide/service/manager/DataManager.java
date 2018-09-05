@@ -4,9 +4,11 @@ import android.content.Context;
 
 import com.oybc.wizardoflegendguide.service.RetrofitHelper;
 import com.oybc.wizardoflegendguide.service.RetrofitService;
-import com.oybc.wizardoflegendguide.service.entitiy.Skill;
+import com.oybc.wizardoflegendguide.service.entitiy.Arcana;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import rx.Observable;
 
@@ -17,11 +19,14 @@ public class DataManager {
         this.mRetrofitService = RetrofitHelper.getInstance(context).getServer();
     }
 
-    public Observable<List<Skill>> getSkill(){
-        return mRetrofitService.getSkill();
+    public Observable<List<Arcana>> getArcana(){
+        return mRetrofitService.getArcana();
     }
 
-    public Observable<List<Skill>> searchSkill(String id){
-        return mRetrofitService.searchSkill(id);
+    public Observable<List<Arcana>> searchArcana(HashMap map){
+        return mRetrofitService.searchArcana(map);
     }
+
+
+
 }

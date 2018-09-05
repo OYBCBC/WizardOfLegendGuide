@@ -18,9 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.SkillShowActivity">
+        <activity android:name=".ui.activity.ArcanaShowActivity"></activity>
+        <activity android:name=".ui.activity.ArcanaDetailActivity"></activity>
 
-        </activity>
     </application>
 
 </manifest>

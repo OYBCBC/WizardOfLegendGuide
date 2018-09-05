@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">WizardOfLegendGuide</string>
+    <string name="basic_dmg">基础伤害</string>
+    <string name="enhanced_dmg">增强后伤害</string>
+    <string name="cd">冷却时间</string>
+    <string name="fend_off">击退效果</string>
+    <string name="duration">效果时长</string>
+    <string name="offset">消弹效果</string>
+    <string name="note">备注</string>
+
+
 </resources>

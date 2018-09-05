@@ -41,18 +41,18 @@ public class RetrofitHelper {
 
     private void resetApp() {
 
-//        loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-//            @Override
-//            public void log(String message) {
-//                Log.i("RetrofitLog", "retrofitBack = " + message);
-//            }
-//        });
-//
-//        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-//
-//        client = new OkHttpClient.Builder()
-//                .addInterceptor(loggingInterceptor)
-//                .build();
+        loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(String message) {
+                Log.i("RetrofitLog", "retrofitBack = " + message);
+            }
+        });
+
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        client = new OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .build();
 
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(baseurl)
