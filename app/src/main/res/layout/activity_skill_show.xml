@@ -6,6 +6,11 @@
 
     <include layout="@layout/search" />
 
+    <Button
+        android:id="@+id/pageTo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <GridView
         android:id="@+id/grid"
         android:layout_width="match_parent"

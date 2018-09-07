@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.ArcanaShowActivity"></activity>
+        <activity android:name=".ui.activity.ArcanaShowActivityTest"></activity>
         <activity android:name=".ui.activity.ArcanaDetailActivity"></activity>
 
     </application>

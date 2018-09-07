@@ -30,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext,ArcanaShowActivity.class);
+//                Intent intent = new Intent(mContext,ArcanaShowActivity.class);
+                Intent intent = new Intent(mContext,ArcanaShowActivityTest.class);
                 startActivity(intent);
             }
         });

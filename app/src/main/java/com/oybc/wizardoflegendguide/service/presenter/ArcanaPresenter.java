@@ -8,6 +8,7 @@ import com.oybc.wizardoflegendguide.service.manager.DataManager;
 import com.oybc.wizardoflegendguide.service.view.ArcanaView;
 import com.oybc.wizardoflegendguide.service.view.View;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +23,7 @@ public class ArcanaPresenter implements Presenter {
     private CompositeSubscription mCompositeSubscription;
     private Context mContext;
     private ArcanaView mArcanaView;
-    private List<Arcana> mArcanas;
+    private List<Arcana> mArcanas = new ArrayList<>();
 
     public ArcanaPresenter(Context mContext) {
         this.mContext = mContext;
@@ -91,8 +92,8 @@ public class ArcanaPresenter implements Presenter {
         );
     }
 
-    public void getSkill() {
-        mCompositeSubscription.add(manager.getArcana()
+    public void getSkill(int page) {
+        mCompositeSubscription.add(manager.getArcana(page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<Arcana>>() {
@@ -111,7 +112,11 @@ public class ArcanaPresenter implements Presenter {
 
                     @Override
                     public void onNext(List<Arcana> arcanas) {
-                        mArcanas = arcanas;
+//                        mArcanas = arcanas;
+                        for (Arcana arcana:arcanas){
+                            mArcanas.add(arcana);
+                        }
+
                     }
                 })
         );

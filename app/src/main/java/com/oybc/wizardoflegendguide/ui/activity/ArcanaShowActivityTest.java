@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+
+import android.view.Gravity;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
+
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.oybc.wizardoflegendguide.R;
@@ -18,6 +21,7 @@ import com.oybc.wizardoflegendguide.service.entitiy.Arcana;
 import com.oybc.wizardoflegendguide.service.presenter.ArcanaPresenter;
 import com.oybc.wizardoflegendguide.service.view.ArcanaView;
 import com.oybc.wizardoflegendguide.service.view.adapter.ArcanaShowAdapter;
+import com.oybc.wizardoflegendguide.ui.custom.PageGridView;
 
 import java.util.List;
 
@@ -25,11 +29,15 @@ import java.util.List;
  * Created by Administrator on 2018/8/30.
  */
 
-public class ArcanaShowActivity extends AppCompatActivity {
+public class ArcanaShowActivityTest extends AppCompatActivity {
 
     private static final String TAG = "ArcanaShowActivity";
     private Context mContext = this;
-    private GridView gridView;
+    private PageGridView gridView;
+
+    private int page = 0;
+    private int visibleLastIndex = 0;   //最后的可视项索引
+    private int visibleItemCount;       // 当前窗口可见项总数
 
     private EditText paramName;
     private EditText param;
@@ -58,7 +66,8 @@ public class ArcanaShowActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-            arcanaShowAdapter.notifyDataSetChanged();
+//            arcanaShowAdapter.notifyDataSetChanged();
+            gridView.updateFooter(View.GONE);
         }
 
         @Override
@@ -71,25 +80,11 @@ public class ArcanaShowActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_skill_show);
         bindViews();
-        initSearch();
         requestData(0);
 
     }
-    private void initSearch() {
-        paramName = findViewById(R.id.paramName);
-        param = findViewById(R.id.param);
-        request = (Button)findViewById(R.id.request);
 
-        request.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchData(paramName.getText().toString(),
-                        param.getText().toString());
-            }
-        });
-    }
     private void searchData(String s1, String s2) {
         mArcanaPresenter.onStop();
         mArcanaPresenter.onCreate();
@@ -104,16 +99,43 @@ public class ArcanaShowActivity extends AppCompatActivity {
     }
 
     private void bindViews() {
-        gridView = findViewById(R.id.grid);
+//        gridView = findViewById(R.id.grid);
 
-        pageTo = findViewById(R.id.pageTo);
-        pageTo.setOnClickListener(new View.OnClickListener() {
+        LinearLayout llParent = new LinearLayout(this);
+        llParent.setOrientation(LinearLayout.VERTICAL);
+        llParent.setGravity(Gravity.TOP);
+
+        gridView = new PageGridView(this);
+        llParent.addView(gridView);
+
+        gridView.setNumColumns(3);
+        gridView.setVerticalSpacing(10);
+        gridView.setHorizontalSpacing(15);
+        //这里注意，一定要设置Gravity为Gravity.CENTER,否则不会出现页脚
+        gridView.setGravity(Gravity.CENTER);
+        
+        gridView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
-            public void onClick(View v) {
-                int page = Integer.parseInt(param.getText().toString().trim());
-                requestData(page);
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+                    // 滚动到底,请求下一页数据
+                    if (view.getLastVisiblePosition() == (view.getCount() - 1)) {
+                        page ++;
+                        requestData(page);
+                        gridView.updateFooter(View.VISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if(view.getLastVisiblePosition() != (view.getCount() - 1)){
+                    gridView.updateFooter(View.GONE);
+                }
             }
         });
+
+        setContentView(llParent);
     }
 
 

@@ -21,16 +21,16 @@ public class DataManager {
         this.mRetrofitService = RetrofitHelper.getInstance(context).getServer();
     }
 
-    public Observable<List<Arcana>> getArcana() {
-        return mRetrofitService.getArcana();
+    public Observable<List<Arcana>> getArcana(int page) {
+        return mRetrofitService.getArcana(page);
     }
 
     public Observable<List<Arcana>> searchArcana(HashMap map) {
         return mRetrofitService.searchArcana(map);
     }
 
-    public Observable<List<Relics>> getRelics() {
-        return mRetrofitService.getRelics();
+    public Observable<List<Relics>> getRelics(int n) {
+        return mRetrofitService.getRelics(n);
     }
 
     public Observable<List<Arcana>> searchRelics(HashMap map) {
