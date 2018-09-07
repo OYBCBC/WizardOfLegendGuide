@@ -14,7 +14,7 @@ public class Arcana implements Serializable {
     private String type;
     private String dmg;
     private String ehDmg;
-    private int fendoff;
+    private String fendoff;
     private String duration;
     private String offset;
     private String note;
@@ -99,11 +99,11 @@ public class Arcana implements Serializable {
         this.ehDmg = ehDmg;
     }
 
-    public int getFendoff() {
+    public String getFendoff() {
         return fendoff;
     }
 
-    public void setFendoff(int fendoff) {
+    public void setFendoff(String fendoff) {
         this.fendoff = fendoff;
     }
 

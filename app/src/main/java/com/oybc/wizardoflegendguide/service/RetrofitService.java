@@ -2,6 +2,7 @@ package com.oybc.wizardoflegendguide.service;
 
 
 import com.oybc.wizardoflegendguide.service.entitiy.Arcana;
+import com.oybc.wizardoflegendguide.service.entitiy.Cloak;
 import com.oybc.wizardoflegendguide.service.entitiy.Relics;
 
 import java.util.HashMap;
@@ -19,7 +20,7 @@ public interface RetrofitService {
 
 
     @GET("guide_for_Wizard_of_Legend_server/GetArcana")
-    Observable<List<Arcana>> getArcana();
+    Observable<List<Arcana>> getArcana(@Query("page") int page);
 
 
     @GET("guide_for_Wizard_of_Legend_server/SearchArcana")
@@ -27,7 +28,13 @@ public interface RetrofitService {
 
 
     @GET("guide_for_Wizard_of_Legend_server/GetRelics")
-    Observable<List<Relics>> getRelics();
+    Observable<List<Relics>> getRelics(@Query("page") int page);
 
+    @GET("guide_for_Wizard_of_Legend_server/SearchRelics")
+    Observable<List<Relics>> searchRelics(@QueryMap() HashMap<String,String> map);@GET("guide_for_Wizard_of_Legend_server/GetRelics")
 
+    Observable<List<Cloak>> getCloak(@Query("page") int page);
+
+    @GET("guide_for_Wizard_of_Legend_server/SearchRelics")
+    Observable<List<Cloak>> searchCloak(@QueryMap() HashMap<String,String> map);
 }
