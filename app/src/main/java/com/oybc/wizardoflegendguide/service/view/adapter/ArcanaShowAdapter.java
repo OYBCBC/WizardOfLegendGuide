@@ -99,4 +99,15 @@ public class ArcanaShowAdapter extends BaseAdapter {
         ImageView iv;
         TextView tv;
     }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+        Log.i(TAG,"ArcanaShowAdapter.notifyDataSetChanged()");
+    }
+
+    public void setData(List<Arcana> arcanas){
+        this.arcanas = arcanas;
+    }
+
 }

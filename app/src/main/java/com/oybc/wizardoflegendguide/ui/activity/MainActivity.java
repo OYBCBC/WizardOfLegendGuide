@@ -6,17 +6,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.oybc.wizardoflegendguide.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = "MainActivity";
 
-    private Button button;
-
+    private Button arcanaButton;
+    private Button relicsButton;
+    private Button cloakButton;
     private Context mContext = this;
 
 
@@ -24,22 +23,34 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        bindViews();
+    }
 
-
-        button = findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent = new Intent(mContext,ArcanaShowActivity.class);
-                Intent intent = new Intent(mContext,ArcanaShowActivityTest.class);
-                startActivity(intent);
-            }
-        });
-
+    private void bindViews(){
+        arcanaButton = findViewById(R.id.arcana_button);
+        relicsButton = findViewById(R.id.relics_button);
+        cloakButton = findViewById(R.id.cloak_button);
+        arcanaButton.setOnClickListener(this);
+        relicsButton.setOnClickListener(this);
+        cloakButton.setOnClickListener(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.arcana_button:
+                Intent intent = new Intent(mContext,ArcanaShowActivityTest.class);
+                startActivity(intent);
+                break;
+            case R.id.relics_button:
+                break;
+            case R.id.cloak_button:
+                break;
+        }
     }
 }

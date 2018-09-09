@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spingarr">
+    <item name="name">名字</item>
+    <item name="dscrp">描述</item>
+    </string-array>
+</resources>

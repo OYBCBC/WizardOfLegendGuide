@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -80,7 +79,7 @@ public class ArcanaShowActivity extends AppCompatActivity {
     private void initSearch() {
         paramName = findViewById(R.id.paramName);
         param = findViewById(R.id.param);
-        request = (Button)findViewById(R.id.request);
+        request = (Button)findViewById(R.id.search);
 
         request.setOnClickListener(new View.OnClickListener() {
             @Override

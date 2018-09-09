@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 import android.util.AttributeSet;
+import com.oybc.wizardoflegendguide.app.Const;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AbsListView;
@@ -25,6 +27,9 @@ public class PageGridView extends LinearLayout {
     private LinearLayout footerView;
 
     public static final String TAG = "ListViewWithPage";
+    private ProgressBar pb;
+    private TextView tvMessage;
+
     public PageGridView(Context context) {
         super(context);
         init();
@@ -52,14 +57,14 @@ public class PageGridView extends LinearLayout {
         //设置footer,可以在里面加进度条等内容
         footerView = new LinearLayout(getContext());
 
-        ProgressBar pb = new ProgressBar(getContext());
-        TextView tvMessage = new TextView(getContext());
+        pb = new ProgressBar(getContext());
+        tvMessage = new TextView(getContext());
         tvMessage.setText("正在加载数据。。。");
         tvMessage.setTextSize(20);
 
         footerView.addView(pb);
         footerView.addView(tvMessage);
-        footerView.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.TOP);
+        footerView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
 
         addView(footerView);
 
@@ -68,59 +73,95 @@ public class PageGridView extends LinearLayout {
         footerView.setVisibility(View.GONE);
     }
 
+    Parcelable state;
     //由于调用此方法一般都为单开线程，不能直接更新控件状态，因此需要一个Handler来协助
-    public void updateFooter(int statue){
+    public void updateFooter(int statue) {
+        state = gridview.onSaveInstanceState();
         updateFooterViewHandler.sendEmptyMessage(statue);
     }
 
+    public void restoreScroll(){
+        gridview.onRestoreInstanceState(state);
+    }
+
     @SuppressLint("HandlerLeak")
-    private Handler updateFooterViewHandler = new Handler(){
+    private Handler updateFooterViewHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             //这里状态 可以控制为多个，如果想要下拉箭头的话，可以根据状态来修改控件内容，这里我只设置是否显示而已
             footerView.setVisibility(msg.what);
+
             //当设置View.GONE的时候，数据已经加载完成，因此需要通知数据改变
-            if(msg.what==View.GONE){
-                ((BaseAdapter)gridview.getAdapter()).notifyDataSetChanged();
+            switch (msg.what){
+                case Const.MSG_GONE:
+                    ((BaseAdapter) gridview.getAdapter()).notifyDataSetChanged();
+                    break;
+                case Const.MSG_ERROR:
+                    tvMessage.setText("加载失败");
+                    pb.setVisibility(GONE);
+                    break;
             }
+
         }
     };
 
-    public void setOnScrollListener(AbsListView.OnScrollListener onScrollListener){
+    public void setOnScrollListener(AbsListView.OnScrollListener onScrollListener) {
         gridview.setOnScrollListener(onScrollListener);
     }
 
-    public void setNumColumns(int number){
+    public void setNumColumns(int number) {
         gridview.setNumColumns(number);
     }
 
-    public void setVerticalSpacing(int spacing){
+    public void setVerticalSpacing(int spacing) {
         gridview.setVerticalSpacing(spacing);
     }
 
-    public void setHorizontalSpacing(int spacing){
+    public void setHorizontalSpacing(int spacing) {
         gridview.setHorizontalSpacing(spacing);
     }
 
-    public void setColumnWidth(int width){
+    public void setColumnWidth(int width) {
         gridview.setColumnWidth(width);
     }
 
-    public void setStretchMode(int stretchMode){
+    public void setStretchMode(int stretchMode) {
         gridview.setStretchMode(stretchMode);
     }
 
-    public void setAdapter(BaseAdapter adapter){
+    public void setAdapter(BaseAdapter adapter) {
         gridview.setAdapter(adapter);
     }
 
-    public void setOnItemClickListener(AdapterView.OnItemClickListener itemClickListener){
+    public void setOnItemClickListener(AdapterView.OnItemClickListener itemClickListener) {
         gridview.setOnItemClickListener(itemClickListener);
     }
 
-    public Object getItemAtPosition(int position){
+    public Object getItemAtPosition(int position) {
         return gridview.getItemAtPosition(position);
     }
 
+    public int getSelectedItemPosition() {
+        return gridview.getSelectedItemPosition();
+    }
 
+    public Parcelable onSaveInstanceState() {
+        return super.onSaveInstanceState();
+    }
+
+    public void onRestoreInstanceState(Parcelable state) {
+        super.onRestoreInstanceState(state);
+    }
+
+    public int getFirstVisiblePosition() {
+        return gridview.getFirstVisiblePosition();
+    }
+
+    public int getLastVisiblePosition() {
+        return gridview.getLastVisiblePosition();
+    }
+
+    public void setSelection(int position) {
+        gridview.setSelection(position);
+    }
 }
