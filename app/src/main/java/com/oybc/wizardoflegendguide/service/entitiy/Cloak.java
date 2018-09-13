@@ -5,7 +5,10 @@ public class Cloak implements java.io.Serializable {
     private int id;
     private String name;
     private String pic;
-
+    private String cd;
+    private String defense;
+    private String criticalDamage;
+    private String dscrp;
     private String maxHealth;
     private String runSpeed;
     private String criticalChance;
@@ -85,10 +88,6 @@ public class Cloak implements java.io.Serializable {
         this.criticalDamage = criticalDamage;
     }
 
-    private String cd;
-    private String defense;
-    private String criticalDamage;
-    private String dscrp;
 
     public int getId() {
         return id;

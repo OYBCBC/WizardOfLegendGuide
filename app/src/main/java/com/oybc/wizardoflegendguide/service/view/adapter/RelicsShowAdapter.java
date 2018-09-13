@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.oybc.wizardoflegendguide.R;
+import com.oybc.wizardoflegendguide.app.Const;
 import com.oybc.wizardoflegendguide.service.entitiy.Relics;
 
 import java.util.List;
@@ -21,12 +22,10 @@ import java.util.List;
 
 public class RelicsShowAdapter extends BaseAdapter {
 
-    private static final String TAG = "RelicsShowAdapter";
+    private static final String TAG = "ArcanaShowAdapter";
     private Context mContext;
 
     private List<Relics> relicss;
-
-    private String baseurl = "http://10.0.2.2:8080/guide_for_Wizard_of_Legend_server";
 
     public RelicsShowAdapter(Context context, List<Relics> arcanas) {
         this.mContext = context;
@@ -60,25 +59,26 @@ public class RelicsShowAdapter extends BaseAdapter {
             holder = new MyHolder();
             convertView = LayoutInflater.from(mContext).inflate(R.layout.grid_item, null);
             holder.iv = (ImageView) convertView.findViewById(R.id.img);
-            //设置显示图片
-            //holder.iv.setText(getItem(position).getSkillPic());
-
-            //with()方法可以接收Context、Activity或者Fragment类型的参数
-            //load方法中不仅可以传入图片地址，还可以传入图片文件File，resource，图片的byte数组等
-            Log.i(TAG, baseurl + getItem(position).getPic());
-            //使用glide加载图片
-            Glide.with(mContext)
-                    .load(baseurl + relicss.get(position).getPic())
-                    .into(holder.iv);//显示的位置
-
             holder.tv = (TextView) convertView.findViewById(R.id.name);
-            //设置标题
-            holder.tv.setText(getItem(position).getName());
             convertView.setTag(holder);
         } else {
             holder = (MyHolder) convertView.getTag();
-            return convertView;
         }
+        ImageView imageView = holder.iv;
+        TextView textView = holder.tv;
+        final String imageViewTag = (String) imageView.getTag(R.id.imageloader_uri);
+        final String textViewTag = (String) textView.getTag(R.id.textloader_uri);
+        final String ivUri = Const.BASE_IMG_URL + ((Relics)getItem(position)).getPic();
+        final String tvUri = ((Relics)getItem(position)).getName();
+        if (!ivUri.equals(imageViewTag)) {
+//            imageView.setImageDrawable((R.drawable.ic_launcher_foreground));
+        }
+
+
+        imageView.setTag(R.id.imageloader_uri,ivUri);
+        textView.setTag(R.id.textloader_uri,tvUri);
+        Glide.with(mContext).load(ivUri).into(imageView);
+        textView.setText(tvUri);
         return convertView;
     }
 
@@ -86,4 +86,15 @@ public class RelicsShowAdapter extends BaseAdapter {
         ImageView iv;
         TextView tv;
     }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+        Log.i(TAG,"RelicsShowAdapter.notifyDataSetChanged()");
+    }
+
+    public void setData(List<Relics> relicss){
+        this.relicss = relicss;
+    }
+
 }

@@ -44,12 +44,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.arcana_button:
-                Intent intent = new Intent(mContext,ArcanaShowActivityTest.class);
-                startActivity(intent);
+                startActivity(new Intent(mContext,ArcanaShowActivityTest.class));
                 break;
             case R.id.relics_button:
+                startActivity(new Intent(mContext,RelicsShowActivityTest.class));
                 break;
             case R.id.cloak_button:
+                startActivity(new Intent(mContext,CloakShowActivityTest.class));
                 break;
         }
     }

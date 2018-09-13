@@ -5,6 +5,7 @@ import android.content.Context;
 import com.oybc.wizardoflegendguide.service.RetrofitHelper;
 import com.oybc.wizardoflegendguide.service.RetrofitService;
 import com.oybc.wizardoflegendguide.service.entitiy.Arcana;
+import com.oybc.wizardoflegendguide.service.entitiy.Cloak;
 import com.oybc.wizardoflegendguide.service.entitiy.Relics;
 
 import java.util.HashMap;
@@ -33,7 +34,15 @@ public class DataManager {
         return mRetrofitService.getRelics(n);
     }
 
-    public Observable<List<Arcana>> searchRelics(HashMap map) {
+    public Observable<List<Relics>> searchRelics(HashMap map) {
         return mRetrofitService.searchRelics(map);
+    }
+
+    public Observable<List<Cloak>> getCloak(int n) {
+        return mRetrofitService.getCloak(n);
+    }
+
+    public Observable<List<Cloak>> searchCloak(HashMap map) {
+        return mRetrofitService.searchCloak(map);
     }
 }

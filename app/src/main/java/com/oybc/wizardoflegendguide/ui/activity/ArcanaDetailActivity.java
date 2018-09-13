@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.oybc.wizardoflegendguide.R;
+import com.oybc.wizardoflegendguide.app.Const;
 import com.oybc.wizardoflegendguide.service.entitiy.Arcana;
 
 /**
@@ -18,11 +19,9 @@ import com.oybc.wizardoflegendguide.service.entitiy.Arcana;
 
 public class ArcanaDetailActivity extends AppCompatActivity {
 
-    private TextView textView;
     private Context mContext = this;
     private Arcana arcana;
 
-    private String baseurl = "http://10.0.2.2:8080/guide_for_Wizard_of_Legend_server";
     private ImageView mPic;
     private TextView mName;
     private TextView mType;
@@ -41,7 +40,6 @@ public class ArcanaDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_skill_detail);
         bindViews();
-
         setViewResources();
 
     }
@@ -49,7 +47,7 @@ public class ArcanaDetailActivity extends AppCompatActivity {
     private void setViewResources() {
         arcana = (Arcana) getIntent().getSerializableExtra("arcana");
         if (arcana != null) {
-            Glide.with(mContext).load(baseurl + arcana.getPic()).into(mPic);
+            Glide.with(mContext).load(Const.BASE_IMG_URL + arcana.getPic()).into(mPic);
             mName.setText("" + arcana.getName());
             mType.setText("" + arcana.getType());
             mNature.setText("" + arcana.getNature());

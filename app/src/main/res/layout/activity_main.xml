@@ -3,23 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context="com.oybc.wizardoflegendguide.ui.activity.MainActivity">
 
     <Button
         android:id="@+id/arcana_button"
-        android:text="奥义界面"
+        android:text="@string/arcana"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/relics_button"
-        android:text="符文界面"
+        android:text="@string/relics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/cloak_button"
-        android:text="奥义界面"
+        android:text="@string/cloak"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

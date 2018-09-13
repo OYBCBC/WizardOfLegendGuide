@@ -61,7 +61,7 @@ public class ArcanaPresenter implements Presenter {
     public void attachIncomingIntent(Intent intent) {
     }
 
-    public void searchSkill(String paramName, String param) {
+    public void searchArcana(String paramName, String param) {
         HashMap map = new HashMap<String, String>();
         map.put(paramName, param);
 
@@ -92,7 +92,7 @@ public class ArcanaPresenter implements Presenter {
         );
     }
 
-    public void getSkill(int page) {
+    public void getArcana(int page) {
         mCompositeSubscription.add(manager.getArcana(page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

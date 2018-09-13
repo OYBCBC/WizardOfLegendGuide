@@ -3,10 +3,9 @@ package com.oybc.wizardoflegendguide.service.presenter;
 import android.content.Context;
 import android.content.Intent;
 
-import com.oybc.wizardoflegendguide.service.entitiy.Relics;
+import com.oybc.wizardoflegendguide.service.entitiy.Cloak;
 import com.oybc.wizardoflegendguide.service.manager.DataManager;
-import com.oybc.wizardoflegendguide.service.view.ArcanaView;
-import com.oybc.wizardoflegendguide.service.view.RelicsView;
+import com.oybc.wizardoflegendguide.service.view.CloakView;
 import com.oybc.wizardoflegendguide.service.view.View;
 
 import java.util.ArrayList;
@@ -18,14 +17,14 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
-public class RelicsPresenter implements Presenter {
+public class CloakPresenter implements Presenter {
     private DataManager manager;
     private CompositeSubscription mCompositeSubscription;
     private Context mContext;
-    private RelicsView mRelicsView;
-    private List<Relics> mRelics = new ArrayList<>();
+    private CloakView mCloakView;
+    private List<Cloak> mCloak = new ArrayList<>();
 
-    public RelicsPresenter(Context mContext) {
+    public CloakPresenter(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -54,64 +53,64 @@ public class RelicsPresenter implements Presenter {
 
     @Override
     public void attachView(View view) {
-        mRelicsView = (RelicsView) view;
+        mCloakView = (CloakView) view;
     }
 
     @Override
     public void attachIncomingIntent(Intent intent) {
     }
 
-    public void searchRelics(String paramName, String param) {
+    public void searchCloak(String paramName, String param) {
         HashMap map = new HashMap<String, String>();
         map.put(paramName, param);
 
-        mCompositeSubscription.add(manager.searchRelics(map)
+        mCompositeSubscription.add(manager.searchCloak(map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<Relics>>() {
+                .subscribe(new Observer<List<Cloak>>() {
                     @Override
                     public void onCompleted() {
-                        if (mRelics != null) {
-                            mRelicsView.onSuccess(mRelics);
+                        if (mCloak != null) {
+                            mCloakView.onSuccess(mCloak);
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
-                        mRelicsView.onError("请求失败！！");
+                        mCloakView.onError("请求失败！！");
                     }
 
                     @Override
-                    public void onNext(List<Relics> relicss) {
-                        mRelics = relicss;
+                    public void onNext(List<Cloak> relicss) {
+                        mCloak = relicss;
                     }
                 })
         );
     }
 
-    public void getRelics(int page) {
-        mCompositeSubscription.add(manager.getRelics(page)
+    public void getCloak(int page) {
+        mCompositeSubscription.add(manager.getCloak(page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<Relics>>() {
+                .subscribe(new Observer<List<Cloak>>() {
                     @Override
                     public void onCompleted() {
-                        if (mRelics != null) {
-                            mRelicsView.onSuccess(mRelics);
+                        if (mCloak != null) {
+                            mCloakView.onSuccess(mCloak);
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
-                        mRelicsView.onError("请求失败！！");
+                        mCloakView.onError("请求失败！！");
                     }
 
                     @Override
-                    public void onNext(List<Relics> relicss) {
-                        for (Relics relics : relicss) {
-                            mRelics.add(relics);
+                    public void onNext(List<Cloak> relicss) {
+                        for (Cloak relics : relicss) {
+                            mCloak.add(relics);
                         }
 
                     }

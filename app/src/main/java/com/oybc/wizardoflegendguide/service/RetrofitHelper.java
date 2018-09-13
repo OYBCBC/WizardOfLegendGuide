@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.GsonBuilder;
+import com.oybc.wizardoflegendguide.app.Const;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -14,8 +15,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitHelper {
 
     private Context mCntext;
-    private String baseurl = "http://10.0.2.2:8080/";
-
     OkHttpClient client = new OkHttpClient();
 
     GsonConverterFactory factory = GsonConverterFactory.create(new GsonBuilder().create());
@@ -55,7 +54,7 @@ public class RetrofitHelper {
                 .build();
 
         mRetrofit = new Retrofit.Builder()
-                .baseUrl(baseurl)
+                .baseUrl(Const.BASE_URL)
                 .client(client)
                 .addConverterFactory(factory)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())

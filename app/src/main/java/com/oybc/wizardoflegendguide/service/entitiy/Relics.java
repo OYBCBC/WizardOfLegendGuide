@@ -1,6 +1,8 @@
 package com.oybc.wizardoflegendguide.service.entitiy;
- 
-public class Relics  implements java.io.Serializable{
+
+import java.io.Serializable;
+
+public class Relics  implements Serializable{
     private int id;
     private String kind;//offense, defense, misc, curse
     private String name;
@@ -57,4 +59,5 @@ public class Relics  implements java.io.Serializable{
                 ", dscrp='" + dscrp + '\'' +
                 '}';
     }
+
 }

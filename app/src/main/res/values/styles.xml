@@ -8,4 +8,17 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AttrStyle">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textAlignment">gravity</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <style name="DscrpStyle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>

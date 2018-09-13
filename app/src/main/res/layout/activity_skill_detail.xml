@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,13 +46,15 @@
 
         </RelativeLayout>
 
+
         <TextView
             android:id="@+id/dscrp"
+            style="@style/DscrpStyle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp" />
+            android:layout_height="wrap_content" />
 
         <LinearLayout
+            style="@style/AttrStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="2">
@@ -60,15 +63,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/basic_dmg" />
+                android:text="@string/basic_dmg"
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/basic_dmg"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center" />
         </LinearLayout>
 
         <LinearLayout
+            style="@style/AttrStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="2">
@@ -77,15 +84,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/enhanced_dmg" />
+                android:text="@string/enhanced_dmg"
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/enhanced_dmg"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center" />
         </LinearLayout>
 
         <LinearLayout
+            style="@style/AttrStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="2">
@@ -94,15 +105,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cd" />
+                android:text="@string/cd"
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/cd"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center" />
         </LinearLayout>
 
         <LinearLayout
+            style="@style/AttrStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="2">
@@ -111,15 +126,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fend_off" />
+                android:text="@string/fend_off"
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/fend_off"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center" />
         </LinearLayout>
 
         <LinearLayout
+            style="@style/AttrStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="2">
@@ -128,15 +147,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/duration" />
+                android:text="@string/duration"
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/duration"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center" />
         </LinearLayout>
 
         <LinearLayout
+            style="@style/AttrStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="2">
@@ -145,15 +168,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/offset" />
+                android:text="@string/offset"
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/offset"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center" />
         </LinearLayout>
 
         <LinearLayout
+            style="@style/AttrStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="2">
@@ -162,12 +189,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/note" />
+                android:text="@string/note"
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/note"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center" />
         </LinearLayout>
 
 

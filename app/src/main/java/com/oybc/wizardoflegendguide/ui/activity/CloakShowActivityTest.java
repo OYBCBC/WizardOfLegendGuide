@@ -4,30 +4,28 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.oybc.wizardoflegendguide.R;
 import com.oybc.wizardoflegendguide.app.Const;
-import com.oybc.wizardoflegendguide.service.entitiy.Arcana;
-import com.oybc.wizardoflegendguide.service.presenter.ArcanaPresenter;
-import com.oybc.wizardoflegendguide.service.view.ArcanaView;
-import com.oybc.wizardoflegendguide.service.view.adapter.ArcanaShowAdapter;
+import com.oybc.wizardoflegendguide.service.entitiy.Cloak;
+import com.oybc.wizardoflegendguide.service.presenter.CloakPresenter;
+import com.oybc.wizardoflegendguide.service.view.CloakView;
+
+import com.oybc.wizardoflegendguide.service.view.adapter.CloakShowAdapter;
 import com.oybc.wizardoflegendguide.ui.custom.PageGridView;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,30 +33,35 @@ import scut.carson_ho.searchview.ICallBack;
 import scut.carson_ho.searchview.SearchView;
 import scut.carson_ho.searchview.bCallBack;
 
-public class ArcanaShowActivityTest extends AppCompatActivity {
+public class CloakShowActivityTest extends AppCompatActivity {
 
-    private static final String TAG = "ArcanaShowActivity";
+    private static final String TAG = "CloakShowActivity";
     private Context mContext = this;
     private PageGridView gridView;
+
+    private Parcelable state;
 
     private int page = 0;
 
     private Spinner spinner;
     private String searchParamName;
+    private SearchView searchView;
 
-    private List<Arcana> arcanas = new ArrayList<>();
+    private List<Cloak> cloaks = new ArrayList<>();
 
-    private ArcanaPresenter mArcanaPresenter = new ArcanaPresenter(mContext);
+    private CloakShowAdapter cloakShowAdapter;
 
-    private ArcanaView mArcanaView = new ArcanaView() {
+    private CloakPresenter mCloakPresenter = new CloakPresenter(mContext);
 
-        ArcanaShowAdapter arcanaShowAdapter = new ArcanaShowAdapter(mContext, arcanas);
+    private CloakView mCloakView = new CloakView() {
+
+        CloakShowAdapter cloakShowAdapter = new CloakShowAdapter(mContext, cloaks);
 
         @Override
-        public void onSuccess(List<Arcana> arcanas) {
-            Log.i(TAG, "ArcanaView.onSuccess()");
-            arcanaShowAdapter.setData(arcanas);
-            gridView.setAdapter(arcanaShowAdapter);
+        public void onSuccess(List<Cloak> cloaks) {
+            Log.i(TAG, "cloakView.onSuccess()");
+            cloakShowAdapter.setData(cloaks);
+            gridView.setAdapter(cloakShowAdapter);
             gridView.restoreScroll();
         }
 
@@ -90,28 +93,21 @@ public class ArcanaShowActivityTest extends AppCompatActivity {
     }
 
     private void initSearch() {
-
         spinner = findViewById(R.id.spinner);
-        SearchView searchView = findViewById(R.id.search_view);
+        searchView = findViewById(R.id.search_view);
 
         spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {//选择item的选择点击监听事件
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
                 searchParamName = spinner.getSelectedItem().toString();
             }
-
             public void onNothingSelected(AdapterView<?> arg0) {
-                // TODO Auto-generated method stub
-
             }
         });
 
-        // 4. 设置点击键盘上的搜索按键后的操作（通过回调接口）
-        // 参数 = 搜索框输入的内容
         searchView.setOnClickSearch(new ICallBack() {
             @Override
             public void SearchAciton(String string) {
-//                System.out.println("我收到了" + string);
                 switch (searchParamName) {
                     case "名字":
                         searchData("name", string);
@@ -136,10 +132,10 @@ public class ArcanaShowActivityTest extends AppCompatActivity {
     }
 
     private void searchData(String s1, String s2) {
-        mArcanaPresenter.onStop();
-        mArcanaPresenter.onCreate();
-        mArcanaPresenter.attachView(mArcanaView);
-        mArcanaPresenter.searchArcana(s1, s2);
+        mCloakPresenter.onStop();
+        mCloakPresenter.onCreate();
+        mCloakPresenter.attachView(mCloakView);
+        mCloakPresenter.searchCloak(s1, s2);
     }
 
     private void gridViewSetting() {
@@ -147,10 +143,10 @@ public class ArcanaShowActivityTest extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(mContext, ArcanaDetailActivity.class);
-                Arcana arcana = (Arcana) gridView.getItemAtPosition(position);
-//                    Log.i(TAG,"onItemClick: " + arcana);
-                intent.putExtra("arcana", arcana);
+                Intent intent = new Intent(mContext, CloakDetailActivity.class);
+                Cloak cloak = (Cloak) gridView.getItemAtPosition(position);
+                Log.i(TAG, cloak.toString());
+                intent.putExtra("cloak", cloak);
                 startActivity(intent);
             }
         });
@@ -158,18 +154,18 @@ public class ArcanaShowActivityTest extends AppCompatActivity {
 
     private void requestData(int page) {
         gridView.updateFooter(View.VISIBLE);
-        mArcanaPresenter.onCreate();
-        mArcanaPresenter.attachView(mArcanaView);
-        mArcanaPresenter.getArcana(page);
+        mCloakPresenter.onCreate();
+        mCloakPresenter.attachView(mCloakView);
+        mCloakPresenter.getCloak(page);
 
     }
 
     private void bindViews() {
         LinearLayout llParent = new LinearLayout(this);
-
+        
         llParent.setOrientation(LinearLayout.VERTICAL);
         llParent.setGravity(Gravity.TOP);
-
+        
         gridView = new PageGridView(this);
 
         gridView.setNumColumns(3);
@@ -181,10 +177,10 @@ public class ArcanaShowActivityTest extends AppCompatActivity {
         gridView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && page != -1) {
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && page!=-1) {
                     // 滚动到底,请求下一页数据
                     if (view.getLastVisiblePosition() == (view.getCount() - 1)) {
-                        requestData(++page);
+
                     }
                 }
             }
@@ -196,7 +192,6 @@ public class ArcanaShowActivityTest extends AppCompatActivity {
                 }
             }
         });
-
         @SuppressLint("InflateParams") LinearLayout l2Parent = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.search_bar, null);
         llParent.addView(l2Parent);
         llParent.addView(gridView);
@@ -207,7 +202,7 @@ public class ArcanaShowActivityTest extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mArcanaPresenter.onStop();
+        mCloakPresenter.onStop();
     }
 
 }

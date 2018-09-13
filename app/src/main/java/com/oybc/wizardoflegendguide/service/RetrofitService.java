@@ -31,10 +31,11 @@ public interface RetrofitService {
     Observable<List<Relics>> getRelics(@Query("page") int page);
 
     @GET("guide_for_Wizard_of_Legend_server/SearchRelics")
-    Observable<List<Relics>> searchRelics(@QueryMap() HashMap<String,String> map);@GET("guide_for_Wizard_of_Legend_server/GetRelics")
+    Observable<List<Relics>> searchRelics(@QueryMap() HashMap<String,String> map);
 
+    @GET("guide_for_Wizard_of_Legend_server/GetCloak")
     Observable<List<Cloak>> getCloak(@Query("page") int page);
 
-    @GET("guide_for_Wizard_of_Legend_server/SearchRelics")
+    @GET("guide_for_Wizard_of_Legend_server/SearchCloak")
     Observable<List<Cloak>> searchCloak(@QueryMap() HashMap<String,String> map);
 }

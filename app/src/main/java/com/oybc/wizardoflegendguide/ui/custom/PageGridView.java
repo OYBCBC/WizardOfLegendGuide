@@ -17,16 +17,11 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-/**
- * Created by Administrator on 2018/9/7.
- */
-
 public class PageGridView extends LinearLayout {
 
     private GridView gridview;
     private LinearLayout footerView;
 
-    public static final String TAG = "ListViewWithPage";
     private ProgressBar pb;
     private TextView tvMessage;
 
@@ -45,7 +40,6 @@ public class PageGridView extends LinearLayout {
         super(context, attrs);
         init();
     }
-
     private void init() {
         gridview = new GridView(getContext());
         setOrientation(LinearLayout.VERTICAL);
@@ -54,12 +48,10 @@ public class PageGridView extends LinearLayout {
         gridview.getLayoutParams().width = LayoutParams.MATCH_PARENT;
         gridview.getLayoutParams().height = LinearLayout.LayoutParams.WRAP_CONTENT;
 
-        //设置footer,可以在里面加进度条等内容
         footerView = new LinearLayout(getContext());
 
         pb = new ProgressBar(getContext());
         tvMessage = new TextView(getContext());
-        tvMessage.setText("正在加载数据。。。");
         tvMessage.setTextSize(20);
 
         footerView.addView(pb);
@@ -73,8 +65,8 @@ public class PageGridView extends LinearLayout {
         footerView.setVisibility(View.GONE);
     }
 
-    Parcelable state;
-    //由于调用此方法一般都为单开线程，不能直接更新控件状态，因此需要一个Handler来协助
+    private Parcelable state;
+
     public void updateFooter(int statue) {
         state = gridview.onSaveInstanceState();
         updateFooterViewHandler.sendEmptyMessage(statue);
@@ -88,10 +80,8 @@ public class PageGridView extends LinearLayout {
     private Handler updateFooterViewHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            //这里状态 可以控制为多个，如果想要下拉箭头的话，可以根据状态来修改控件内容，这里我只设置是否显示而已
             footerView.setVisibility(msg.what);
 
-            //当设置View.GONE的时候，数据已经加载完成，因此需要通知数据改变
             switch (msg.what){
                 case Const.MSG_GONE:
                     ((BaseAdapter) gridview.getAdapter()).notifyDataSetChanged();
